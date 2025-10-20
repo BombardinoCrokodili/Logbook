@@ -1,0 +1,111 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Logbook_System
+{
+    public partial class frmDashboard : Form
+    {
+        private Button currentButton;
+        private Color defaultColor = Color.Gainsboro;
+        private Color activeColor = Color.MediumBlue;
+
+        public frmDashboard()
+        {
+            InitializeComponent();
+        }
+        private void LoadForm(Form form)
+        {
+            form.TopLevel = false;
+            pictureBox1.Controls.Clear();
+            pictureBox1.Controls.Add(form);
+            form.Dock = DockStyle.Fill;
+            form.Show();
+        }
+
+        private void ActivateButton(object sender)
+        {
+            if (currentButton != null)
+            {
+                currentButton.BackColor = defaultColor;
+            }
+
+            Button clickedButton = (Button)sender;
+            clickedButton.BackColor = activeColor;
+            currentButton = clickedButton;
+        }
+
+        private void MenuButton_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn != currentButton) btn.BackColor = Color.DarkCyan;
+        }
+
+        private void MenuButton_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn != currentButton) btn.BackColor = defaultColor;
+        }
+
+
+        private void btnMembers_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmMembers());
+        }
+
+        private void btnAttendance_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmAttendance());
+        }
+
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmProducts());
+        }
+
+        private void btnSales_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmSales());
+        }
+
+        private void btnInventory_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmInventory());
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender);
+            LoadForm(new frmReports());
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.Hide();
+                frmLogin loginForm = new frmLogin();
+                loginForm.Show();
+            }
+        }
+
+        private void frmDashboard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        }
+    }
+
